@@ -21,12 +21,12 @@ def encode(message, lookup):
     are represented as '????' in the output.
     """
     rows = []
-    for line in message.strip().splitlines():
-        words = []
-        for char in line.upper():
+    for token in message.strip().split():
+        cipher_words = []
+        for char in token.upper():
             candidates = lookup.get(char, [])
-            words.append(random.choice(candidates) if candidates else "????")
-        rows.append(" ".join(words))
+            cipher_words.append(random.choice(candidates) if candidates else "????")
+        rows.append(" ".join(cipher_words))
     return rows
 
 
