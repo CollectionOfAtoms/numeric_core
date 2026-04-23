@@ -1,9 +1,9 @@
 import sys
 from core import numeric_core
-from cipher import solve_cypher
+from cipher import solve_cipher
 
 
-cypher = [["PIGS", "SAND", "MAIL", "DATE", "HEAD"],
+cipher = [["PIGS", "SAND", "MAIL", "DATE", "HEAD"],
           ["CLAM", "FISH", "SAND", "JOYA", "WELL"],
           ["TOAD", "CARD", " WILL", "TAPE", "LEGS"],
           ["THREE", "ROAD", "MAID", "SLAB", "ROCK"],
@@ -15,10 +15,10 @@ final_words = [["BLUE", "EMPTY", "MOTHER", "ONESELF", "SWANSONG"]]
 color_combos = [["ROV"]]
 
 if __name__ == "__main__":
-    # NOTE: The original file had `solve_cypher(alphabet, to_char=True)` at module
+    # NOTE: The original file had `solve_cipher(alphabet, to_char=True)` at module
     # level but `alphabet` was never defined. Moved here and commented out pending
-    # clarification of intent. Most likely candidate: solve_cypher(color_combos, to_char=True)
-    # solve_cypher(alphabet, to_char=True)
+    # clarification of intent. Most likely candidate: solve_cipher(color_combos, to_char=True)
+    # solve_cipher(alphabet, to_char=True)
 
     if len(sys.argv) > 1:
         input_string = sys.argv[1]
