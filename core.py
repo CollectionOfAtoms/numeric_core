@@ -7,7 +7,6 @@ def word_to_position_string(s):
     for char in s.upper():
         if char.isalpha():
             result += str(ord(char) - ord('A') + 1)
-    print(f"Converted '{s}' to position string: {result}") #DIAG
     return result
 
 
@@ -25,8 +24,7 @@ def get_all_splits(n_str, num_parts=4):
             prev = cut
         parts.append(int(n_str[prev:]))
         if any(part == 0 for part in parts):
-            continue  # Skip if any part is zero
-        print(f"Splits: {parts} with cuts at {cuts}")
+            continue
         yield parts
 
 
@@ -47,9 +45,7 @@ def evaluate_left_to_right(numbers, ops):
 
 def numeric_core_number(split, depth=0, max_depth=15):
     """Recursively find the numeric core: smallest positive whole number < 1000."""
-    print(f"Depth {depth}: Evaluating {split}") #DIAG
     if depth > max_depth:
-        print(f"Depth {depth}: Exceeded max depth")
         return None
 
     n_str = str(split)
@@ -60,57 +56,38 @@ def numeric_core_number(split, depth=0, max_depth=15):
 
     for ops in permutations(['-', '*', '/']):
         result = evaluate_left_to_right(split, ops)
-        if split == [20, 8, 1, 855]:
-            print("Found the specific split!")
-        print("result", ' : ', result) #DIAG
 
         if result is None or result <= 0:
-            print(f"Depth {depth}: Invalid result {result} for split {split} with ops {ops}")
             continue
         if not result.is_integer():
-            print(f"Depth {depth}: Non-integer result {result} for split {split} with ops {ops}")
             continue
         result = int(result)
         if result < 1000:
-            print(f"Depth {depth}: Valid core {result} for split {split} with ops {ops}")
             valid_results.append(result)
         else:
             for sub_split in get_all_splits(str(int(result))):
-                print("sub_split", ' : ', sub_split) #DIAG
-
                 result = numeric_core_number(sub_split)
                 if result is not None:
                     valid_results.append(result)
-
-    print("valid_results", ' : ', valid_results) #DIAG
 
     return min(valid_results) if valid_results else None
 
 
 def numeric_core(s: str, deep_check=True):
     """Takes a word and returns its numeric core."""
-    print(f"Input word: {s}") #DIAG
     n_str = word_to_position_string(s)
-    print("n_str", ' : ', n_str) #DIAG
 
-    ## First use the default split by letters in th word, then if that fails, try all combinations of splits and operations.
+    ## First use the default split by letters in the word, then if that fails, try all combinations of splits and operations.
     if not n_str:
         return None
 
     split = [int(word_to_position_string(char)) for char in s if char.isalpha()]
-    print(f"Default split: {split}") #DIAG
-    print("len(split == 4)", ' : ', len(split) == 4) #DIAG
 
     if len(split) == 4:
-        print("got_here") #DIAG
-
         result = numeric_core_number(split)
-        print("result", ' : ', result) #DIAG
-
         if result is not None:
             return result
         elif deep_check:
-            print("Default split did not yield a valid core, trying all combinations of splits and operations.")
             valid_results = []
             for split in get_all_splits(n_str):
                 result = numeric_core_number(split)
@@ -118,21 +95,11 @@ def numeric_core(s: str, deep_check=True):
                     valid_results.append(result)
             return min(valid_results) if valid_results else None
         else:
-            #Default split didn't yield a valid core and don't waste compute
             return None
     else:
-        print("Number of letters is not 4")
-
-
         valid_results = []
         for split in get_all_splits(n_str):
             result = numeric_core_number(split)
-            print("result", ' : ', result) #DIAG
-
             if result is not None:
-                print(f"Split {split} yielded result: {result}")
                 valid_results.append(result)
-            if result is None:
-                print(f"Split {split} did not yield a valid core.")
-                continue
         return min(valid_results) if valid_results else None
