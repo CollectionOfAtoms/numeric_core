@@ -2,6 +2,12 @@
 
 A cipher toolkit built around the **numeric core** puzzle mechanic from the video game [Blue Prince](https://store.steampowered.com/app/1569580/Blue_Prince/).
 
+> [!WARNING]
+> **This repository spoils a late-game puzzle.** If you have not solved the 5×5 note yet, close this tab — it's a satisfying one.
+
+<details>
+<summary><strong>I've solved it — show me the README</strong></summary>
+
 ## How it works
 
 Each letter in a word is converted to its alphabet position (A=1, B=2, ... Z=26), producing a list of four numbers. Those numbers are then combined using arithmetic operations (subtraction, multiplication, division) applied left-to-right across all permutations until the result is a positive whole number less than 1000. The smallest such result is the **numeric core**. That number maps back to a letter (1=A, 2=B, ..., 26=Z), allowing words to encode characters.
@@ -31,6 +37,12 @@ python cipher.py <input_file> [output_file]
 **Example** — decode `cipher.txt`:
 ```
 $ python cipher.py cipher.txt
+
+STILL
+W?TER
+TINTS
+BLANK
+BOOKS
 ```
 
 ---
@@ -88,3 +100,5 @@ dictionary.py    # Regenerate dictionary.csv
 numeric_core.py  # Single-word CLI
 dictionary.csv   # Pre-built word → character lookup table
 ```
+
+</details>
