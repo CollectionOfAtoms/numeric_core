@@ -1,3 +1,4 @@
+import sys
 from core import numeric_core
 
 
@@ -9,11 +10,10 @@ def number_2_letter(n):
         return None
 
 
-def solve_cypher(cypher, to_char=True):
-    """Solves the cypher by taking the numeric core of each word and converting to a letter."""
-
-    cypher_message = []
-    for row in cypher:
+def solve_cipher(cipher, to_char=True):
+    """Solves the cipher by taking the numeric core of each word and converting to a letter."""
+    cipher_message = []
+    for row in cipher:
         row_cores = []
         for word in row:
             try:
@@ -26,11 +26,22 @@ def solve_cypher(cypher, to_char=True):
                     core = number_2_letter(result)
                 else:
                     core = result
-
                 row_cores.append(core)
             else:
                 row_cores.append(result)
-        cypher_message.append(row_cores)
+        cipher_message.append(row_cores)
 
-    for row in cypher_message:
-        print(row)
+    return cipher_message
+
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python cipher.py <file>")
+        sys.exit(1)
+
+    with open(sys.argv[1]) as f:
+        data = [line.strip().split() for line in f if line.strip()]
+
+    result = solve_cipher(data)
+    for row in result:
+        print("".join(c if c is not None else "?" for c in row))
