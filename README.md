@@ -77,17 +77,23 @@ python dictionary.py
 
 ---
 
-### `numeric_core.py` — Single-word CLI
+### `numeric_core.py` — Single-word/number CLI
 
-Computes the numeric core of a single word.
+Computes the numeric core of a word or a raw number.
+
+- **Word** — converts letters to alphabet positions, then computes the core.
+- **4+ digit number** — computes the core directly from the digit string, skipping the word conversion step.
 
 ```bash
-python numeric_core.py <word>
+python numeric_core.py <word|number>
 ```
 
 ```
 $ python numeric_core.py PIGS
 19
+
+$ python numeric_core.py 16971919
+1
 ```
 
 ## File structure
@@ -97,7 +103,7 @@ core.py          # Numeric core computation engine
 cipher.py        # Decode cipher grids
 encode.py        # Encode plaintext messages
 dictionary.py    # Regenerate dictionary.csv
-numeric_core.py  # Single-word CLI
+numeric_core.py  # Single-word/number CLI
 dictionary.csv   # Pre-built word → character lookup table
 ```
 
