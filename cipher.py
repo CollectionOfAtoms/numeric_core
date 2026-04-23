@@ -16,6 +16,9 @@ def solve_cipher(cipher, to_char=True):
     for row in cipher:
         row_cores = []
         for word in row:
+            if len(word) == 1 and not word.isalpha():
+                row_cores.append(word)
+                continue
             try:
                 result = numeric_core(word)
             except Exception:

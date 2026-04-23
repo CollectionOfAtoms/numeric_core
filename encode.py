@@ -24,6 +24,9 @@ def encode(message, lookup):
     for token in message.strip().split():
         cipher_words = []
         for char in token.upper():
+            if not char.isalpha():
+                cipher_words.append(char)
+                continue
             candidates = lookup.get(char, [])
             cipher_words.append(random.choice(candidates) if candidates else "????")
         rows.append(" ".join(cipher_words))
