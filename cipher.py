@@ -36,12 +36,17 @@ def solve_cipher(cipher, to_char=True):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python cipher.py <file>")
+        print("Usage: python cipher.py <input_file> [output_file]")
         sys.exit(1)
 
     with open(sys.argv[1]) as f:
         data = [line.strip().split() for line in f if line.strip()]
 
     result = solve_cipher(data)
-    for row in result:
-        print("".join(c if c is not None else "?" for c in row))
+    output = "\n".join("".join(c if c is not None else "?" for c in row) for row in result)
+
+    print(output)
+
+    if len(sys.argv) >= 3:
+        with open(sys.argv[2], "w") as f:
+            f.write(output + "\n")
