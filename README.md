@@ -31,12 +31,6 @@ python cipher.py <input_file> [output_file]
 **Example** — decode `cipher.txt`:
 ```
 $ python cipher.py cipher.txt
-
-STILL
-W?TER
-TINTS
-BLANK
-BOOKS
 ```
 
 ---
