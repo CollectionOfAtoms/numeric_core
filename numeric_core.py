@@ -1,6 +1,5 @@
 import sys
-from core import numeric_core
-from cipher import number_2_letter
+from core import numeric_core, get_all_splits, numeric_core_number
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -8,7 +7,8 @@ if __name__ == "__main__":
         sys.exit(1)
 
     arg = sys.argv[1]
-    if arg.isdigit():
-        print(number_2_letter(int(arg)))
+    if arg.isdigit() and len(arg) >= 4:
+        valid = [r for split in get_all_splits(arg) for r in [numeric_core_number(split)] if r is not None]
+        print(min(valid) if valid else None)
     else:
         print(numeric_core(arg))
